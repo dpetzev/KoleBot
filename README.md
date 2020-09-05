@@ -27,6 +27,7 @@ Facebook group chat bot for my September vacation. Uses the fbchat library that 
 * kakvo da piq - произволно питие
 * uzo/ uzo ima li
 * симитли/simitli
+* шега/shega - казва "dad joke" на английски
 * няколко скрити гифчета
 
 ## Getting Started
