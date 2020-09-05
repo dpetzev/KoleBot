@@ -3,8 +3,8 @@
 Facebook group chat bot for my September vacation. Uses the fbchat library that tricks facebook into thinking that a real users is logged into this account.  Fun fact: entirety of this project was done on public wifi and offline as apparently it's very difficult to set up home wifi in Germany... 
 
 ## Възможни команди
- ####Всички команди трябва да започват с “kole” (без значение капитализацията), всички други ще бъдат пропуснати. 
-  ####Почти всички команди работят и с варянта им на кирилца. вила кога == vila koga 
+####Всички команди трябва да започват с “kole” (без значение капитализацията), всички други ще бъдат пропуснати. 
+####Почти всички команди работят и с варянта им на кирилца. вила кога == vila koga 
 * Без следващ аргумент - полезна информация за бота и помощ 
 * vreme {име на населено място} - времето днес за населеното място
 * poluchi li - Дали най-накрая коле е получил или не
