@@ -6,6 +6,7 @@ from pprint import pprint
 from datetime import datetime
 from threading import Timer
 from random import randrange
+from dadjokes import dadjokes
 import requests, json
 import random
 import configparser
@@ -41,7 +42,7 @@ class KoleBot(Client):
 	    atmosphere = u"🌫"      # Code: 700's foogy
 	    clearSky = u"☀"      # Code: 800 clear sky
 	    fewClouds = u"🌤"      # Code: 801 sun behind clouds
-	    clouds = u"☁"        # Code: 802-803-804 clouds general
+	    clouds = u"☁️"        # Code: 802-803-804 clouds general
 	    hot = u"☀"         # Code: 904
 	    defaultEmoji = u"🤷"    # default emojis
 
@@ -150,6 +151,8 @@ class KoleBot(Client):
 				api_key=config.apiWeather
 				weather = self.get_weather(api_key,mesto)
 				self.send(Message(self.formatWeatherData(weather,mesto)),thread_id=thread_id,thread_type=thread_type)
+			elif text.startswith("simitli") or text.startswith("симитли"):
+				self.send(Message("☀ грее 🌧 вали .."),thread_id=thread_id,thread_type=thread_type)
 			elif text.startswith("kak si") or text.startswith("как си"): 
 				self.send(Message("biva, ti kak si?"),thread_id=thread_id,thread_type=thread_type)
 			elif text.startswith("sfanali") or text.startswith("сфанали"): 
@@ -255,6 +258,8 @@ class KoleBot(Client):
 				else:
 					birichki[split[1]]=birichki.get(split[1],0)+1
 					self.send(Message("🍺"),thread_id=thread_id,thread_type=thread_type)
+			elif text.startswith("uzo"):
+				self.sendRemoteFiles("https://i.makeagif.com/media/10-11-2014/EgJZeO.gif", message=None, thread_id=thread_id, thread_type=thread_type)
 			elif text.startswith("kolko biri") or text.startswith("колко бири"):
 				split = text.split(' ')
 				chovek = split[2].encode('utf-8')
@@ -265,6 +270,9 @@ class KoleBot(Client):
 			elif (text == "kakvo da piq" or text == "какво да пия"):
 				otgovor = random.choice(alkohol)
 				self.send(Message(otgovor),thread_id=thread_id,thread_type=thread_type)
+			elif (text == "shega" or text == "шега"):
+				joke_msg = requests.get('https://icanhazdadjoke.com/', headers={'Accept': 'application/json'}).json().get('joke')
+				self.send(Message(joke_msg),thread_id=thread_id,thread_type=thread_type)
 			else:
 				self.send(Message("Не разбирам какво точно искаш от мен. Пробвай \"kole\" или \"коле\" за помощ и полезна информация"),thread_id=thread_id,thread_type=thread_type)
 	def onListening(self):
@@ -296,7 +304,7 @@ class KoleBot(Client):
 		thread_id_list = [thread_id]
 		usersInfo = self.fetchUserInfo(added_ids[0])
 		for userObj in usersInfo.values():
-			self.send(Message(u"👋 Neka vsichki kajem zdravei na {}".format(userObj.first_name)),thread_id=thread_id,thread_type=thread_type)
+			self.send(Message(u"👋 Нека всички кажем здравей на {}".format(userObj.first_name)),thread_id=thread_id,thread_type=thread_type)
 			ime = userObj.first_name
 			index = 0
 			while (ime in hora):
@@ -359,7 +367,7 @@ client.listen()
 	# rap
 # help function? - add the link to the github and add a read me ?!?! maybe in English as well?
 # "pretty" the code formatiing
-# kak da vurvi postoqnno bez da trqbva da mi e otvoren laptopa? - herouko
+# kak  da vurvi postoqnno bez da trqbva da mi e otvoren laptopa? - herouko
 # make koli dic save somewhere periodacally if program ends unexpectably
 # mojite 🥇, 🥈, 🥉, 👎, 🍺
 # test saving/loading cars
