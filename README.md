@@ -25,6 +25,7 @@ Facebook group chat bot for my September vacation. Uses the fbchat library that 
 * kolko biri  - Класация за кой на колко бири е за деня (рестартира се в 9 сутринта на другия ден, предполагам, че до тогава е спрял да пие)
 * kak shte si na vilata - как ще е на вилата
 * kakvo da piq - произволно питие
+* uzo/ uzo ima li
 * няколко скрити гифчета
 
 ## Getting Started
