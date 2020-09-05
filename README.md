@@ -26,6 +26,7 @@ Facebook group chat bot for my September vacation. Uses the fbchat library that 
 * kak shte si na vilata - как ще е на вилата
 * kakvo da piq - произволно питие
 * uzo/ uzo ima li
+* симитли/simitli
 * няколко скрити гифчета
 
 ## Getting Started
