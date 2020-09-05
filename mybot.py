@@ -12,7 +12,7 @@ import configparser
 import config
 
 
-thread_id = '3253924284715089' #change to correct one
+thread_id = '3433777146642310' #change to correct one
 thread_type = ThreadType.GROUP  
 botName = 'kole'
 botNameCyr = (u"коле").encode('utf-8')
@@ -21,6 +21,7 @@ hora = []
 vila_link= "https://vila.bg/house-slanchev-ray-3766.html"
 koliDic = {}
 birichki = {}
+alkohol= config.alkohol
 
 #nicknameTracker = {} # on every nickname change map the ID to the current nickname
 
@@ -90,7 +91,7 @@ class KoleBot(Client):
 	def sendHelp(self):
 		helpStr = "Отговор на вечния въпрос, \"kole, poluchi li?\" "
 		helpStr += "\nРазработено от: Митачето 🍺"
-		helpStr += "\nЗа списък със всички възможни команди и полезна информация: https://github.com/dpetzev/KoleBot"
+		helpStr += "\nЗа списък със всички възможни команди и полезна информация: https://github.com/dpetzev/KoleBot/blob/master/README.md"
 		return helpStr
 	def pprintKoli(self):
 		if(len(koliDic)==0):
@@ -261,6 +262,9 @@ class KoleBot(Client):
 					self.send(Message("Не намирам "+split[2]),thread_id=thread_id,thread_type=thread_type)
 				else:
 					self.send(Message(split[2]+ "е на " + birichki[split[2]] + " бири"),thread_id=thread_id,thread_type=thread_type)
+			elif (text == "kakvo da piq" or text == "какво да пия"):
+				otgovor = random.choice(alkohol)
+				self.send(Message(otgovor),thread_id=thread_id,thread_type=thread_type)
 			else:
 				self.send(Message("Не разбирам какво точно искаш от мен. Пробвай \"kole\" или \"коле\" за помощ и полезна информация"),thread_id=thread_id,thread_type=thread_type)
 	def onListening(self):
@@ -282,18 +286,17 @@ class KoleBot(Client):
 	def onPersonRemoved(self,mid,removed_id,author_id,thread_id,ts,msg):
 		thread_id_list = [thread_id]
 		userInfo = self.fetchUserInfo(removed_id)
-		for usrId, usrObj in userInfo:
-			self.send(Message("Auf wiedersehn {}".format(usrObj.first_name)),thread_id=thread_id,thread_type=thread_type)
+		for userObj in userInfo.values():
+			self.send(Message("Auf wiedersehn {}".format(userObj.first_name)),thread_id=thread_id,thread_type=thread_type)
 			if(userObj.first_name in hora):
-				hora.remove(usrObj.first_name)
+				hora.remove(userObj.first_name)
 			birichki.pop(userObj.first_name,None)
 			#birichki.pop(userObj.nickname,None)  #potential bug if someones nickname is also a first name in the dict
 	def onPeopleAdded(self,mid,added_ids,author_id,thread_id,ts,msg):
 		thread_id_list = [thread_id]
-		usersInfo = self.fetchUserInfo(added_ids)
-		for usrId, usrObj in usersInfo:
-			self.wave()
-			self.send(Message("Neka vsichki kajem zdravei na {}".format(id)),thread_id=thread_id,thread_type=thread_type)
+		usersInfo = self.fetchUserInfo(added_ids[0])
+		for userObj in usersInfo.values():
+			self.send(Message(u"👋 Neka vsichki kajem zdravei na {}".format(userObj.first_name)),thread_id=thread_id,thread_type=thread_type)
 			ime = userObj.first_name
 			index = 0
 			while (ime in hora):
@@ -304,7 +307,7 @@ class KoleBot(Client):
 				else:
 					ime = ime + userObj.last_name[index]
 				index=index+1
-			birichki[usrObj.first_name]= 0
+			birichki[userObj.first_name]= 0
 			hora.append(ime)
 
  #    # it's much better to be called by your nickname than first name
@@ -363,4 +366,3 @@ client.listen()
 # test nickname stuff
 # reading hore populates it with first names not nicknames, stay on just first names?, what to do when two people with same name
 # inpersonremoved the persons name could be more than just his/her first name
-
